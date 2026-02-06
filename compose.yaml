@@ -1,0 +1,20 @@
+version: '3.8'
+
+services:
+  iot_api:
+    build: .
+    container_name: iot_api_modular
+    restart: always
+    ports:
+      - "3000:3000"
+    environment:
+      - MONGO_URI=mongodb+srv://usuari:password@cluster.mongodb.net/iot_db?retryWrites=true&w=majority
+      
+      - RASPBERRY_TUNNEL_URL=https://encara-no-la-tinc.trycloudflare.com/actuator
+
+  tunnel:
+    image: cloudflare/cloudflared:latest
+    container_name: iot_public_tunnel
+    command: tunnel --url http://iot_api:3000
+    depends_on:
+      - iot_api
