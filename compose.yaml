@@ -6,15 +6,15 @@ services:
     container_name: iot_api_modular
     restart: always
     ports:
-      - "3000:3000"
+      - "3100:3100"
     environment:
-      - MONGO_URI=mongodb+srv://usuari:password@cluster.mongodb.net/iot_db?retryWrites=true&w=majority
+      - MONGO_URI=mongodb+srv://sims_grup_4_db_user:<grup42026>@cluster-iot-gps.9xi75ol.mongodb.net/
       
-      - RASPBERRY_TUNNEL_URL=https://encara-no-la-tinc.trycloudflare.com/actuator
+      - RASPBERRY_TUNNEL_URL=https://university-mud-picked-loaded.trycloudflare.com/actuator
 
   tunnel:
     image: cloudflare/cloudflared:latest
     container_name: iot_public_tunnel
-    command: tunnel --url http://iot_api:3000
+    command: tunnel --url http://iot_api:3100
     depends_on:
       - iot_api

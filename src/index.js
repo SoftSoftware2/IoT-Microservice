@@ -12,5 +12,5 @@ app.use(cors());
 
 app.use('/api', iotRoutes);
 
-const PORT = 3000;
+const PORT = 3100;
 app.listen(PORT, () => console.log(`🚀 Microservice running to port ${PORT}`));

@@ -15,6 +15,16 @@ exports.saveGpsData = async (req, res) => {
     }
 };
 
+exports.getHistory = async (req, res) => {
+    try {
+        const data = await Telemetry.find().sort({ timestamp: -1 }).limit(100);
+        res.json(data);
+    } catch (error) {
+        console.error("Error recuperant historial:", error.message);
+        res.status(500).json({ error: error.message });
+    }
+};
+
 exports.controlActuator = async (req, res) => {
     const { action } = req.body; // "ON" o "OFF"
     
